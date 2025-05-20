@@ -1,7 +1,11 @@
 package com.example.cabbookingsystem.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class User {
@@ -62,5 +66,4 @@ public class User {
         this.passwordHash = passwordHash;
         this.createdAt = LocalDateTime.now();
     }
-    
 }

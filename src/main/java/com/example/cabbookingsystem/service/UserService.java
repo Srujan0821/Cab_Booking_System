@@ -1,11 +1,12 @@
 package com.example.cabbookingsystem.service;
 
-import com.example.cabbookingsystem.model.User;
-import com.example.cabbookingsystem.repository.UserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.cabbookingsystem.model.User;
+import com.example.cabbookingsystem.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -18,12 +19,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User loginUser(String email, String passwordHash) {
-        return userRepository.findByEmailAndPasswordHash(email, passwordHash);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User getUserProfile(Long userID) {
-        return userRepository.findById(userID).orElse(null);
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
