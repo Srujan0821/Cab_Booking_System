@@ -1,7 +1,9 @@
 package com.example.cabbookingsystem.model;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Driver {
@@ -15,9 +17,7 @@ public class Driver {
     private String vehicleDetails;
     private String status; // e.g., available, unavailable
 
-
     // Getters and Setters
-
     public Long getDriverID() {
         return driverID;
     }
@@ -34,20 +34,20 @@ public class Driver {
         this.name = name;
     }
 
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
     }
 
     public String getVehicleDetails() {
@@ -65,6 +65,4 @@ public class Driver {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    
 }

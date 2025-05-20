@@ -28,7 +28,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Publicly accessible endpoints
                         .requestMatchers("/api/users/login", "/api/users/register").permitAll()
+                        .requestMatchers("/api/drivers/register", "/api/drivers/available","/api/drivers/status/{id}").permitAll()
+                        // Endpoint requiring authentication
+                        .requestMatchers("/api/rides/book").authenticated()
+                        // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

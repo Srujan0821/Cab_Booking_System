@@ -1,8 +1,10 @@
 package com.example.cabbookingsystem.controller;
 
+import com.example.cabbookingsystem.exception.CustomException;
 import com.example.cabbookingsystem.model.Driver;
 import com.example.cabbookingsystem.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,17 +17,35 @@ public class DriverController {
     private DriverService driverService;
 
     @PostMapping("/register")
-    public Driver registerDriver(@RequestBody Driver driver) {
-        return driverService.registerDriver(driver);
+    public ResponseEntity<?> registerDriver(@RequestBody Driver driver) {
+        Driver registeredDriver = driverService.registerDriver(driver);
+        return ResponseEntity.ok(registeredDriver);
     }
 
     @GetMapping("/available")
-    public List<Driver> getAvailableDrivers() {
-        return driverService.getAvailableDrivers();
+    public ResponseEntity<List<Driver>> getAvailableDrivers() {
+        List<Driver> availableDrivers = driverService.getAvailableDrivers();
+        return ResponseEntity.ok(availableDrivers);
     }
 
     @PutMapping("/status/{id}")
-    public Driver updateDriverStatus(@PathVariable Long id, @RequestParam String status) {
-        return driverService.updateDriverStatus(id, status);
+    public ResponseEntity<?> updateDriverStatus(@PathVariable Long id, @RequestParam String status) {
+        Driver updatedDriver = driverService.updateDriverStatus(id, status);
+        return ResponseEntity.ok(updatedDriver);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getDriverById(@PathVariable Long id) {
+        Driver driver = driverService.getDriverById(id);
+        if (driver == null) {
+            throw new CustomException("Driver not found with ID: " + id);
+        }
+        return ResponseEntity.ok(driver);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDriver(@PathVariable Long id) {
+        driverService.deleteDriver(id);
+        return ResponseEntity.ok("Driver deleted successfully");
     }
 }

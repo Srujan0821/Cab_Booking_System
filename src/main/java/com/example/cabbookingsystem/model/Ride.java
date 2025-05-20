@@ -1,6 +1,6 @@
 package com.example.cabbookingsystem.model;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -9,7 +9,10 @@ public class Ride {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rideID;
 
+    @Column(nullable = false)
     private Long userID;
+
+    @Column(nullable = false)
     private Long driverID;
 
     private String pickupLocation;
@@ -18,7 +21,6 @@ public class Ride {
     private String status; // e.g., booked, ongoing, completed
 
     // Getters and Setters
-
     public Long getRideID() {
         return rideID;
     }
@@ -27,36 +29,12 @@ public class Ride {
         this.rideID = rideID;
     }
 
-    public String getStatus() {
-        return status;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public BigDecimal getFare() {
-        return fare;
-    }
-
-    public void setFare(BigDecimal fare) {
-        this.fare = fare;
-    }
-
-    public String getDropoffLocation() {
-        return dropoffLocation;
-    }
-
-    public void setDropoffLocation(String dropoffLocation) {
-        this.dropoffLocation = dropoffLocation;
-    }
-
-    public String getPickupLocation() {
-        return pickupLocation;
-    }
-
-    public void setPickupLocation(String pickupLocation) {
-        this.pickupLocation = pickupLocation;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
     public Long getDriverID() {
@@ -67,11 +45,35 @@ public class Ride {
         this.driverID = driverID;
     }
 
-    public Long getUserID() {
-        return userID;
+    public String getPickupLocation() {
+        return pickupLocation;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setPickupLocation(String pickupLocation) {
+        this.pickupLocation = pickupLocation;
+    }
+
+    public String getDropoffLocation() {
+        return dropoffLocation;
+    }
+
+    public void setDropoffLocation(String dropoffLocation) {
+        this.dropoffLocation = dropoffLocation;
+    }
+
+    public BigDecimal getFare() {
+        return fare;
+    }
+
+    public void setFare(BigDecimal fare) {
+        this.fare = fare;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

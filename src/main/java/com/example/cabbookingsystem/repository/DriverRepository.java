@@ -1,9 +1,10 @@
 package com.example.cabbookingsystem.repository;
 
-import com.example.cabbookingsystem.model.Driver;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.cabbookingsystem.model.Driver;
 
 public interface DriverRepository extends JpaRepository<Driver, Long> {
     List<Driver> findByStatus(String status);
