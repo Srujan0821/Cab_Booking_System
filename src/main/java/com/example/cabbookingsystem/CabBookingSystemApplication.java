@@ -11,4 +11,4 @@ public class CabBookingSystemApplication {
 		System.out.println("Cab Booking System is running...");
 	}
 
-}
+}	

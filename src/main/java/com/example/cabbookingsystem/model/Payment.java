@@ -13,12 +13,12 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentID;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) // Eagerly fetch ride details
     @JoinColumn(name = "ride_id", nullable = false)
     @NotNull(message = "Ride cannot be null")
     private Ride ride;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) // Eagerly fetch user details
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "User cannot be null")
     private User user;
@@ -34,38 +34,15 @@ public class Payment {
     private String status;
 
     private LocalDateTime timestamp;
+
+
     // Getters and Setters
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public Long getPaymentID() {
+        return paymentID;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
+    public void setPaymentID(Long paymentID) {
+        this.paymentID = paymentID;
     }
 
     public Ride getRide() {
@@ -84,11 +61,36 @@ public class Payment {
         this.user = user;
     }
 
-    public Long getPaymentID() {
-        return paymentID;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setPaymentID(Long paymentID) {
-        this.paymentID = paymentID;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+    
 }
