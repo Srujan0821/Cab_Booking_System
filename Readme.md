@@ -11,11 +11,14 @@ This system is designed to handle core functionalities such as user management, 
 ---
 
 ## 2. Features
-- **User Management**: Register and manage users.
-- **Ride Booking**: Book rides with available drivers.
+- **User Management**: Register,login and manage users.
+- **Ride Booking**: Book rides with available drivers and can view past booking.
 - **Payment Processing**: Process payments for rides.
 - **Driver Ratings**: Submit and retrieve ratings for drivers.
 - **Exception Handling**: Custom exceptions for better error management.
+- **Security**: 
+    - **JWT Authentication**: Secure endpoints using JSON Web Tokens.
+    - **Password Encryption**: Encrypt user passwords using industry-standard hashing algorithms (e.g., Base64).
 
 ---
 
@@ -63,22 +66,26 @@ cabbookingsystem/
 The following are the core entity models used in the system:
 
 ### 1. **User**
-| Field       | Type    | Description               | Key         |
-|-------------|---------|---------------------------|-------------|
-| userId      | Long    | Unique identifier         | Primary Key |
-| name        | String  | Name of the user          |             |
-| email       | String  | Email address             |             |
-| password    | String  | User's password           |             |
-| role        | String  | Role of the user (CUSTOMER or DRIVER) | |
+| Field        | Type         | Description                     | Key         |
+|--------------|--------------|---------------------------------|-------------|
+| userId       | Long         | Unique identifier               | Primary Key |
+| name         | String       | Name of the user                |             |
+| email        | String       | Email address                   |             |
+| phone        | String       | Phone number of the user        |             |
+| passwordHash | String       | Hashed password for security    |             |
+| createdAt    | LocalDateTime| Account creation timestamp      |             |
 
 ---
 
 ### 2. **Driver**
-| Field       | Type    | Description               | Key         |
-|-------------|---------|---------------------------|-------------|
-| driverId    | Long    | Unique identifier         | Primary Key |
-| name        | String  | Name of the driver        |             |
-| license     | String  | Driver's license number   |             |
+| Field           | Type    | Description                     | Key         |
+|------------------|---------|---------------------------------|-------------|
+| driverId        | Long    | Unique identifier               | Primary Key |
+| name            | String  | Name of the driver              |             |
+| phone           | String  | Phone number of the driver      |             |
+| licenseNumber   | String  | Driver's license number         |             |
+| vehicleDetails  | String  | Details of the driver's vehicle |             |
+| status          | String  | Driver's status (ACTIVE, INACTIVE) | |
 
 ---
 
@@ -89,21 +96,22 @@ The following are the core entity models used in the system:
 | userId          | Long           | ID of the customer              | Foreign Key (User.userId) |
 | driverId        | Long           | ID of the driver                | Foreign Key (Driver.driverId) |
 | pickupLocation  | String         | Pickup location of the ride     |             |
-| dropLocation    | String         | Drop location of the ride       |             |
-| rideTime        | LocalDateTime  | Scheduled time of the ride      |             |
+| dropoffLocation | String         | Drop-off location of the ride   |             |
+| fare            | Double         | Fare for the ride               |             |
 | status          | String         | Status of the ride (BOOKED, COMPLETED, CANCELLED) | |
 
 ---
 
 ### 4. **Payment**
-| Field           | Type    | Description                     | Key         |
-|------------------|---------|---------------------------------|-------------|
-| paymentId       | Long    | Unique identifier               | Primary Key |
-| rideId          | Long    | ID of the associated ride       | Foreign Key (Ride.rideId) |
-| userId          | Long    | ID of the user making payment   | Foreign Key (User.userId) |
-| amount          | Double  | Payment amount                  |             |
-| paymentMethod   | String  | Method of payment (CARD, CASH, WALLET) | |
-| status          | String  | Payment status (SUCCESS, FAILED) |             |
+| Field           | Type           | Description                     | Key         |
+|------------------|----------------|---------------------------------|-------------|
+| paymentId       | Long           | Unique identifier               | Primary Key |
+| rideId          | Long           | ID of the associated ride       | Foreign Key (Ride.rideId) |
+| userId          | Long           | ID of the user making payment   | Foreign Key (User.userId) |
+| amount          | Double         | Payment amount                  |             |
+| method          | String         | Method of payment (CARD, CASH, WALLET) | |
+| status          | String         | Payment status (SUCCESS, FAILED) |             |
+| timestamp       | LocalDateTime  | Payment timestamp               |             |
 
 ---
 
@@ -113,9 +121,9 @@ The following are the core entity models used in the system:
 | ratingId        | Long    | Unique identifier               | Primary Key |
 | rideId          | Long    | ID of the associated ride       | Foreign Key (Ride.rideId) |
 | fromUserId      | Long    | ID of the user giving the rating | Foreign Key (User.userId) |
-| driverId        | Long    | ID of the driver being rated    | Foreign Key (Driver.driverId) |
-| rating          | Integer | Rating given (1 to 5)           |             |
-| feedback        | String  | Feedback provided by the user   | |
+| toUserId        | Long    | ID of the user being rated      | Foreign Key (User.userId) |
+| score           | Integer | Rating given (1 to 5)           |             |
+| comments        | String  | Comments provided by the user   |             |
 
 These models are mapped to the database and form the foundation of the system's data layer.
 
