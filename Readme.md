@@ -58,8 +58,68 @@ cabbookingsystem/
 - **Postman**: API testing.
 
 ---
+## 5. Entity Models
 
-## 5. Setup Instructions
+The following are the core entity models used in the system:
+
+### 1. **User**
+| Field       | Type    | Description               | Key         |
+|-------------|---------|---------------------------|-------------|
+| userId      | Long    | Unique identifier         | Primary Key |
+| name        | String  | Name of the user          |             |
+| email       | String  | Email address             |             |
+| password    | String  | User's password           |             |
+| role        | String  | Role of the user (CUSTOMER or DRIVER) | |
+
+---
+
+### 2. **Driver**
+| Field       | Type    | Description               | Key         |
+|-------------|---------|---------------------------|-------------|
+| driverId    | Long    | Unique identifier         | Primary Key |
+| name        | String  | Name of the driver        |             |
+| license     | String  | Driver's license number   |             |
+
+---
+
+### 3. **Ride**
+| Field           | Type           | Description                     | Key         |
+|------------------|----------------|---------------------------------|-------------|
+| rideId          | Long           | Unique identifier               | Primary Key |
+| userId          | Long           | ID of the customer              | Foreign Key (User.userId) |
+| driverId        | Long           | ID of the driver                | Foreign Key (Driver.driverId) |
+| pickupLocation  | String         | Pickup location of the ride     |             |
+| dropLocation    | String         | Drop location of the ride       |             |
+| rideTime        | LocalDateTime  | Scheduled time of the ride      |             |
+| status          | String         | Status of the ride (BOOKED, COMPLETED, CANCELLED) | |
+
+---
+
+### 4. **Payment**
+| Field           | Type    | Description                     | Key         |
+|------------------|---------|---------------------------------|-------------|
+| paymentId       | Long    | Unique identifier               | Primary Key |
+| rideId          | Long    | ID of the associated ride       | Foreign Key (Ride.rideId) |
+| userId          | Long    | ID of the user making payment   | Foreign Key (User.userId) |
+| amount          | Double  | Payment amount                  |             |
+| paymentMethod   | String  | Method of payment (CARD, CASH, WALLET) | |
+| status          | String  | Payment status (SUCCESS, FAILED) |             |
+
+---
+
+### 5. **Rating**
+| Field           | Type    | Description                     | Key         |
+|------------------|---------|---------------------------------|-------------|
+| ratingId        | Long    | Unique identifier               | Primary Key |
+| rideId          | Long    | ID of the associated ride       | Foreign Key (Ride.rideId) |
+| fromUserId      | Long    | ID of the user giving the rating | Foreign Key (User.userId) |
+| driverId        | Long    | ID of the driver being rated    | Foreign Key (Driver.driverId) |
+| rating          | Integer | Rating given (1 to 5)           |             |
+| feedback        | String  | Feedback provided by the user   | |
+
+These models are mapped to the database and form the foundation of the system's data layer.
+
+## 6. Setup Instructions
 
 ### Prerequisites
 - **Java 17** or higher installed.
@@ -69,8 +129,8 @@ cabbookingsystem/
 ### Steps
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-repo/cab-booking-system.git
-    cd cab-booking-system
+    git clone https://github.com/Srujan0821/Car_Booking_System.git
+    cd Car_Booking_System
     ```
 
 2. Configure the database:
