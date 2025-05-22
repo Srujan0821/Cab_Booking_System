@@ -1,5 +1,11 @@
 # Cab Booking System
 
+## Agile Methodology
+
+Agile methodology is a flexible and iterative approach to software development and project management. It emphasizes collaboration, customer feedback, and small, rapid releases to deliver high-quality software efficiently. Agile promotes adaptability to changing requirements and focuses on delivering value incrementally.
+
+For more details, refer to this [Agile Methodology Excel Document](https://cognizantonline-my.sharepoint.com/:x:/g/personal/2407095_cognizant_com/EThTb_syc7VHqSHrXskZEwMBLyQqeR839zSEuAlkQIOw3g?e=4dETKk).
+
 ## 1. Introduction
 The **Cab Booking System** is a backend application built using **Java (Spring Boot)** that enables users to:
 - Book rides.
